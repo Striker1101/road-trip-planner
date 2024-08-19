@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road Trip Planner</title>
     @vite('resources/css/app.css')
-    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script> --}}
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&callback=myMap"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzBzDJOo73Uhid5YI0elsFrWo_Ma4ANMk&libraries=places&callback=initializeGoogleMaps"
+        async defer></script>
 </head>
 
 <body>
