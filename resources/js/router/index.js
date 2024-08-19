@@ -18,6 +18,7 @@ const routes = [
         path: "/path_way",
         name: "Pathway",
         component: Pathway,
+        props: true,
     },
 ];
 

@@ -105,52 +105,36 @@ export default {
             }
         },
         planTrip(current, destination) {
-            console.log(current, destination);
-
             const directionsService = new google.maps.DirectionsService();
             const directionsRenderer = new google.maps.DirectionsRenderer();
 
-            // Initialize the map with DirectionsRenderer
             const map = new google.maps.Map(document.getElementById("map"), {
                 center: current,
                 zoom: 7,
             });
             directionsRenderer.setMap(map);
 
-            // Define the directions request
             const request = {
                 origin: current,
                 destination: destination,
-                travelMode: google.maps.TravelMode.DRIVING, // You can change this to WALKING, BICYCLING, or TRANSIT
+                travelMode: google.maps.TravelMode.DRIVING,
             };
 
-            // Request the route from DirectionsService
             directionsService.route(request, (result, status) => {
                 if (status === google.maps.DirectionsStatus.OK) {
                     directionsRenderer.setDirections(result);
-                    const route = result.routes[0];
-                    const summaryPanel =
-                        document.getElementById("directions-panel");
-                    summaryPanel.innerHTML = "";
 
-                    // For each route, display the distance and duration
-                    for (let i = 0; i < route.legs.length; i++) {
-                        const leg = route.legs[i];
-                        summaryPanel.innerHTML += `<b>Route Segment: ${
-                            i + 1
-                        }</b><br>`;
-                        summaryPanel.innerHTML += `${leg.start_address} to `;
-                        summaryPanel.innerHTML += `${leg.end_address}<br>`;
-                        summaryPanel.innerHTML += `${leg.distance.text} in `;
-                        summaryPanel.innerHTML += `${leg.duration.text}<br><br>`;
-                    }
+                    // Navigate to the Pathway route with the result as a prop
+                    this.$router.push({
+                        name: "Pathway",
+                        params: { directions: result },
+                    });
                 } else {
                     console.error("Directions request failed due to " + status);
                     alert("Could not retrieve directions. Please try again.");
                 }
             });
         },
-
         getCurrentLocation() {
             return new Promise((resolve, reject) => {
                 if (!this.currentLocationAvailable) {
